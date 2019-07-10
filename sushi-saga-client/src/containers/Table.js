@@ -8,20 +8,32 @@ const Table = (props) => {
     })
   }
 
+  const renderBalance = () => {
+    let startingBalance = 100
+    let totalCost = 0
+    props.eatenSushi.map(sushi => totalCost += sushi.price)
+    let finalBalance = startingBalance - totalCost
+    if (finalBalance <= 0) {
+      return "You have no money left!"
+    } else {
+      return `You have ${finalBalance} USD left!`
+    }
+  }
+
   return (
     <Fragment>
       <h1 className="remaining">
-        You have: ${ /* Give me how much money I have left */ } remaining!
+        {renderBalance()}
       </h1>
       <div className="table">
         <div className="stack">
           {
-            /* 
-               renderPlates takes an array 
+            /*
+               renderPlates takes an array
                and renders an empty plate
                for every element in the array
             */
-            renderPlates([])
+            renderPlates(props.eatenSushi)
           }
         </div>
       </div>
